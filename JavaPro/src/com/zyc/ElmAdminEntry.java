@@ -1,5 +1,13 @@
-package com.zyc.dao;
+package com.zyc;
 
+import com.zyc.dao.BusinessDao;
+import com.zyc.dao.impl.BusinessDaoImpl;
+import com.zyc.domain.Admin;
+import com.zyc.domain.Business;
+import com.zyc.view.AdminView;
+import com.zyc.view.impl.AdminViewImpl;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class ElmAdminEntry {
@@ -13,7 +21,7 @@ public class ElmAdminEntry {
         System.out.println("---------饿了么后台管理系统----------");
         System.out.println("-----------------------------------");
 
-        AdminView adminView = new AdminViewImpl();
+        AdminView adminView = (AdminView) new AdminViewImpl();
         BusinessDao businessDao = new BusinessDaoImpl();
         Admin admin = adminView.login();
         int menu = 0;
@@ -25,7 +33,7 @@ public class ElmAdminEntry {
                 menu = input.nextInt();
                 switch (menu){
                     case 1:
-                        List<Business> businesses = businessDao.listBusiness();
+                        List<Business> businesses = businessDao.businessList();
                         for (Business b : businesses){
                             System.out.println(b);
                         }
@@ -45,7 +53,6 @@ public class ElmAdminEntry {
                     default:
                         System.out.println("没有这个选项");
                         break;
-
                 }
             }
 
