@@ -1,13 +1,11 @@
 package com.zyc;
 
-import com.zyc.dao.BusinessDao;
-import com.zyc.dao.impl.BusinessDaoImpl;
 import com.zyc.domain.Admin;
-import com.zyc.domain.Business;
 import com.zyc.view.AdminView;
+import com.zyc.view.BusinessView;
 import com.zyc.view.impl.AdminViewImpl;
+import com.zyc.view.impl.BusinessViewImpl;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class ElmAdminEntry {
@@ -21,9 +19,9 @@ public class ElmAdminEntry {
         System.out.println("---------饿了么后台管理系统----------");
         System.out.println("-----------------------------------");
 
-        AdminView adminView = (AdminView) new AdminViewImpl();
-        BusinessDao businessDao = new BusinessDaoImpl();
+        AdminView adminView = new AdminViewImpl();
         Admin admin = adminView.login();
+        BusinessView businessView=new BusinessViewImpl();
         int menu = 0;
         if (admin != null){
             System.out.println("登录成功");
@@ -33,19 +31,16 @@ public class ElmAdminEntry {
                 menu = input.nextInt();
                 switch (menu){
                     case 1:
-                        List<Business> businesses = businessDao.businessList();
-                        for (Business b : businesses){
-                            System.out.println(b);
-                        }
+                        businessView.listAllBusiness();
                         break;
                     case 2:
-                        System.out.println("搜索商家");
+                        businessView.selectBusiness();
                         break;
                     case 3:
-                        System.out.println("搜索商家");
+                        businessView.addBusiness();
                         break;
                     case 4:
-                        System.out.println("搜索商家");
+                        businessView.removeBusiness();
                         break;
                     case 5:
                         System.out.println("欢迎下次登录");
