@@ -1,6 +1,7 @@
 package com.example.redbag;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@NoArgsConstructor
 //指定该类是实体类
 public class LuckyMoney {
 
@@ -25,10 +27,6 @@ public class LuckyMoney {
     private String producer; //发红包的人
     private String consumer; //收红包的人
 
-    public LuckyMoney() {
-
-    }
-
     public LuckyMoney(Integer id, BigDecimal money, String producer, String consumer) {
         this.id = id;
         this.money = money;
@@ -37,4 +35,7 @@ public class LuckyMoney {
     }
 
 
+//    public LuckyMoney() {
+//
+//    }
 }

@@ -2,12 +2,12 @@ package com.example.redbag;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class RedbagApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RedbagApplication.class, args);
-
     }
 }
