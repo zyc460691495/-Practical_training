@@ -1,6 +1,8 @@
 package com.example.redbag;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +19,12 @@ public class UserController {
     @GetMapping("/all")
     public List<User> findAll(){
         return userRepo.findAll();
+    }
+    @GetMapping("/page")
+    public Page<User> pageQuery(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                                @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
+        PageRequest of = PageRequest.of(pageNum - 1, pageSize);
+        return userRepo.findAll(of);
     }
     //查询
     @GetMapping("/all/{id}")
@@ -52,6 +60,15 @@ public class UserController {
         User user=userRepo.findById(id).get();
         user.setUsername(username);
         return user;
+        //
+
+    }
+    @PutMapping("/{id}")
+    public User update(){
+        User user=new User();
+        user.setId(id);
+        return userRepo.save(user)
+        return u
     }
     //删除
     @DeleteMapping("/delete")
