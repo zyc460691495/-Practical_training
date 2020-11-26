@@ -1,6 +1,7 @@
 package com.zyc.springbootsell.dataobject;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +12,8 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
-public class OrederDetail {
+@NoArgsConstructor
+public class OrderDetail {
 
     @Id
     private String detailId;
