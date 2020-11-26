@@ -21,7 +21,11 @@ public class UserController {
     //查询
     @GetMapping("/all/{id}")
     public User findById(@PathVariable("id") String id){
+
         return userRepo.findById(id).orElse(null);
+
+//        Optional<User> byId = userRepo.findById(id);
+//        return byId.orElseGet(User::new);
     }
     //新建
     @PostMapping("/new")
@@ -35,6 +39,12 @@ public class UserController {
         userRepo.save(user);
         return user;
     }
+    @PostMapping("/")
+    public User save1(@RequestBody User user){
+
+        return userRepo.save(user);
+    }
+
     //更新
     @PutMapping("/update/{id}")
     public User updateusername(@PathVariable("id") String id,
