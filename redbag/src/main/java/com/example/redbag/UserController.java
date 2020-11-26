@@ -22,7 +22,7 @@ public class UserController {
     }
     @GetMapping("/page")
     public Page<User> pageQuery(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                                @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
+                                @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize){
         PageRequest of = PageRequest.of(pageNum - 1, pageSize);
         return userRepo.findAll(of);
     }
@@ -64,11 +64,10 @@ public class UserController {
 
     }
     @PutMapping("/{id}")
-    public User update(){
-        User user=new User();
+    public User update(@PathVariable("id") String id,
+                       @RequestBody User user){
         user.setId(id);
-        return userRepo.save(user)
-        return u
+        return userRepo.save(user);
     }
     //删除
     @DeleteMapping("/delete")
