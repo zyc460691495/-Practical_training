@@ -36,7 +36,7 @@ public class ProductInfoController {
     }
 
     //修改
-    @PutMapping("/updatde/{productId}")
+    @PutMapping("/update/{productId}")
     public ProductInfo update(@PathVariable("productId") String productId,
                               @RequestBody ProductInfo productInfo){
         productInfo.setProductId(productId);

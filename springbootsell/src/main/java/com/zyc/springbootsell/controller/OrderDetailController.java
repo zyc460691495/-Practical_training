@@ -20,27 +20,27 @@ public class OrderDetailController {
     public List<OrderDetail> findAll(){
         return repo.findAll();
     }
-    @GetMapping("/findOne/{orderId}")
-    public OrderDetail findOne(@PathVariable("orderId") String orderId){
-        return repo.findOne(orderId);
+    @GetMapping("/findOne/{detailId}")
+    public OrderDetail findOne(@PathVariable("detailId") String detailId){
+        return repo.findOne(detailId);
     }
 
     //增加
     @PostMapping("/new")
-    public OrderDetail update(@RequestBody OrderDetail orderDetail){
+    public OrderDetail save(@RequestBody OrderDetail orderDetail){
         return repo.save(orderDetail);
     }
 
     //修改
-    @PutMapping("/update/{orderId}")
-    public OrderDetail update(@PathVariable("orderId") String orderId,
+    @PutMapping("/update/{detailId}")
+    public OrderDetail update(@PathVariable("detailId") String detailId,
                               @RequestBody OrderDetail orderDetail){
         return repo.save(orderDetail);
     }
 
     //删除
     @DeleteMapping("/remove")
-    public void remove(@RequestParam(value = "orderId") String orderId){
-        repo.delete(orderId);
+    public void remove(@RequestParam(value = "detailId") String detailId){
+        repo.delete(detailId);
     }
 }
