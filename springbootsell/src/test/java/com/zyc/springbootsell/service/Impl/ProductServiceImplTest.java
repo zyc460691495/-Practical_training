@@ -2,17 +2,17 @@ package com.zyc.springbootsell.service.Impl;
 
 import com.zyc.springbootsell.dataobject.ProductInfo;
 import com.zyc.springbootsell.services.ProductService;
-import com.zyc.springbootsell.services.impl.ProductServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import java.awt.print.Book;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -39,8 +39,28 @@ public class ProductServiceImplTest {
 
     @Test
     public void findAllPage(){
-        Pageable pageable=new Book();
-        productService.findAllPage();
+        Pageable pageable =new PageRequest(0,1, Sort.Direction.ASC,"productId");
+        Page<ProductInfo> allPage = productService.findAllPage((Pageable) pageable);
+        List<ProductInfo> content = allPage.getContent();
+        for (ProductInfo p :content){
+            System.out.println(p);
+        }
+    }
+    @Test
+    public void save() {
+        ProductInfo productInfo =new ProductInfo();
+        productInfo.setProductId("shaod");
+        System.out.println(productService.save(productInfo));
+    }
+
+    @Test
+    public void increaseStock() {
+        productService.increaseStock("1");
+    }
+
+    @Test
+    public void decreseStock() {
+        productService.decreseStock("1");
     }
 
 }

@@ -43,16 +43,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo save(ProductInfo productInfo) {
-        return null;
+        return repo.save(productInfo);
     }
 
     @Override
     public void increaseStock(String productId) {
-
+        ProductInfo one = repo.findOne(productId);
+        one.setProductStock(one.getProductStock()+10);
+        repo.save(one);
     }
 
     @Override
     public void decreseStock(String productId) {
-
+        ProductInfo one = repo.findOne(productId);
+        if(one.getProductStock()>10){
+            one.setProductStock(one.getProductStock()-10);
+        }else {
+            System.out.println("失败");
+        }
+        repo.save(one);
     }
 }

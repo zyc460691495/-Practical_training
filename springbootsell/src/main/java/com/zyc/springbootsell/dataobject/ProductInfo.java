@@ -24,7 +24,7 @@ public class ProductInfo {
 
     private BigDecimal productPrice;
 
-    private Integer productStock;
+    private Integer productStock=0;
 
     private String productDescription;
 
@@ -32,7 +32,7 @@ public class ProductInfo {
 
     private Integer productStatus= ProductStatusEnum.UP.getCode();
 
-    private Integer categoryTpe;
+    private Integer categoryType;
 
     private Date createTime;
 
