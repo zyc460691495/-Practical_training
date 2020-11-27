@@ -2,6 +2,8 @@ package com.zyc.springbootsell.services.impl;
 
 import com.zyc.springbootsell.dataobject.ProductInfo;
 import com.zyc.springbootsell.enums.ProductStatusEnum;
+import com.zyc.springbootsell.enums.ResultEnum;
+import com.zyc.springbootsell.exception.SellException;
 import com.zyc.springbootsell.repository.ProductInfoRepo;
 import com.zyc.springbootsell.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductInfo> findAllUp() {
-        List<ProductInfo> all = repo.findAll();
-        List list=new ArrayList();
-        for (ProductInfo p:all){
-            if(p.getProductStatus()== ProductStatusEnum.UP.getCode()){
-                list.add(p);
-            }
-        }
-        return list;
+//        List<ProductInfo> all = repo.findAll();
+//        List list=new ArrayList();
+//        for (ProductInfo p:all){
+//            if(p.getProductStatus()== ProductStatusEnum.UP.getCode()){
+//                list.add(p);
+//            }
+//        }
+//        return list;
+
+//        repo
+        return repo.findByProductStatus(ProductStatusEnum.UP.getCode());
     }
 
     @Override
@@ -62,5 +67,32 @@ public class ProductServiceImpl implements ProductService {
             System.out.println("失败");
         }
         repo.save(one);
+    }
+
+    @Override
+    public ProductInfo onSale(String productId) {
+        ProductInfo one = repo.findOne(productId);
+        if(one==null){
+            throw  new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+
+        }
+        if(one.getProductStatus()==ProductStatusEnum.UP.getCode()){
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        one.setProductStatus(ProductStatusEnum.UP.getCode());
+        return repo.save(one);
+    }
+
+    @Override
+    public ProductInfo offSale(String productId) {
+        ProductInfo one = repo.findOne(productId);
+        if(one==null){
+            throw  new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if(one.getProductStatus()==ProductStatusEnum.DOWN.getCode()){
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        one.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        return repo.save(one);
     }
 }

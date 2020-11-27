@@ -20,5 +20,7 @@ public interface ProductService {
 
     void decreseStock(String productId);
 
+    ProductInfo onSale(String  productId);
 
+    ProductInfo offSale(String  productId);
 }

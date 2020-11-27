@@ -2,6 +2,7 @@ package com.zyc.springbootsell.service.Impl;
 
 import com.zyc.springbootsell.dataobject.ProductCategory;
 import com.zyc.springbootsell.services.CategoryService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,6 @@ public class CategoryServiceImplTest {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryId(121);
         categoryService.save(productCategory);
+//        Assert.assertNotNull();
     }
 }

@@ -1,6 +1,7 @@
 package com.zyc.springbootsell.service.Impl;
 
 import com.zyc.springbootsell.dataobject.ProductInfo;
+import com.zyc.springbootsell.enums.ProductStatusEnum;
 import com.zyc.springbootsell.services.ProductService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,6 +54,16 @@ public class ProductServiceImplTest {
         System.out.println(productService.save(productInfo));
     }
 
+    @Test
+    public void onSale(){
+        ProductInfo productInfo = productService.onSale("444");
+        Assert.assertEquals(ProductStatusEnum.UP.getMessage(),productInfo.getProductStatus());
+    }
+
+    @Test
+    public void offSale(){
+        productService.offSale("444");
+    }
     @Test
     public void increaseStock() {
         productService.increaseStock("1");
