@@ -41,7 +41,7 @@ public class ProductServiceImplTest {
     @Test
     public void findAllPage(){
         Pageable pageable =new PageRequest(0,1, Sort.Direction.ASC,"productId");
-        Page<ProductInfo> allPage = productService.findAllPage((Pageable) pageable);
+        Page<ProductInfo> allPage = productService.findAllPage(pageable);
         List<ProductInfo> content = allPage.getContent();
         for (ProductInfo p :content){
             System.out.println(p);
