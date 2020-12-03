@@ -1,5 +1,6 @@
 package com.zyc.springbootsell.services.impl;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.zyc.springbootsell.dataobject.OrderDetail;
@@ -33,5 +34,18 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetail save(OrderDetail orderDetail) {
 
         return repo.save(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> findByOrderId(String orderId) {
+
+        List<OrderDetail> res=new ArrayList<>();
+        List<OrderDetail> list = repo.findAll();
+        for (OrderDetail detail:list){
+            if (detail.getOrderId().equals(orderId)){
+                res.add(detail);
+            }
+        }
+        return res;
     }
 }

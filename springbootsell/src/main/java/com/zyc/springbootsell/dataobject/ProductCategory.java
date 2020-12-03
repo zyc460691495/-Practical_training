@@ -22,6 +22,7 @@ public class ProductCategory {
 
     private String categoryName;
 
+    @GeneratedValue
     private Integer categoryType;
 
     private Date createTime;

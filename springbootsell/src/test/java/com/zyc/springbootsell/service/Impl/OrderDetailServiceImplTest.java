@@ -21,9 +21,13 @@ public class OrderDetailServiceImplTest {
     private OrderDetailService service;
 
     @Test
-    public void findOne(){
-        System.out.println(service.findOne("12"));
+
+    public void findByOrderId(){
+        System.out.println(service.findByOrderId("121"));
     }
+//    public void findOne(){
+//        System.out.println(service.findOne("12121"));
+//    }
 
     @Test
     public void findAll(){

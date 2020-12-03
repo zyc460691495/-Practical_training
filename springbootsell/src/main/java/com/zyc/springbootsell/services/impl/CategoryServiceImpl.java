@@ -4,6 +4,8 @@ import com.zyc.springbootsell.dataobject.ProductCategory;
 import com.zyc.springbootsell.repository.ProductCategoryRepo;
 import com.zyc.springbootsell.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Page<ProductCategory> findAllPage(Pageable pageable) {
+        return repo.findAll(pageable);
+    }
+
+    @Override
     public List<ProductCategory> findByCategoryType(List<Integer> list) {
 //        List result=new ArrayList();
 //        List<ProductCategory> all = repo.findAll();
@@ -44,5 +51,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ProductCategory save(ProductCategory productCategory) {
         return repo.save(productCategory);
+    }
+
+    public void remove(Integer categoryId){
+        repo.delete(categoryId);
     }
 }

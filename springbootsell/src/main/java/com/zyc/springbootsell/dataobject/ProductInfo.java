@@ -37,4 +37,5 @@ public class ProductInfo {
     private Date createTime;
 
     private Date updateTime;
+
 }

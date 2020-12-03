@@ -21,6 +21,8 @@ public class ProductCategoryController {
         return service.findOne(categoryId);
     }
 
+
+
 //    @GetMapping("/page")
 //    public Page<ProductCategory> pageQuery(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 //                                           @RequestParam(value = "pageSize", defaultValue = "2") Integer pageSize) {
