@@ -23,6 +23,7 @@ public class LoginController {
     private SellerService service;
 
 
+
     @RequestMapping("/index")
     public ModelAndView index(){
         return new ModelAndView("admin/login");

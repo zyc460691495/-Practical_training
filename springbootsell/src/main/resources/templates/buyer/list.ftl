@@ -7,14 +7,6 @@
     <link rel="stylesheet" href="../../static/css/nav.css">
     <link rel="stylesheet" href="../../static/css/animate.css">
     <style>
-        /*td {*/
-        /*    border: #00cec9 solid 2px;*/
-        /*    padding-left: 30px !important;*/
-        /*    padding-right: 30px !important;*/
-        /*    padding-top: 20px;*/
-        /*    padding-bottom: 20px;*/
-        /*    align-items: center;*/
-        /*}*/
         .me-th {
             padding-top: 10px !important;
             padding-bottom: 10px !important;
@@ -51,6 +43,7 @@
             <th class="me-th">支付状态</th>
             <th class="me-th">创建时间</th>
             <th class="me-th">更新时间</th>
+            <th colspan="3" class="me-th">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -84,8 +77,26 @@
                 </td>
                 <td class="me-t">${orderMaster.createTime}</td>
                 <td class="me-t">${orderMaster.updateTime}</td>
-            </tr>
+                <td colspan="me-t">
+                    <#if orderMaster.payStatus==0 && orderMaster.orderStatus==0>
+                        <a href="/buyer/admin/pay?orderId=${orderMaster.orderId}&userName=${orderMaster.userName}">去支付</a>
+                    </#if>
 
+                    <#if orderMaster.payStatus==1 && orderMaster.orderStatus==0>
+                        <a href="/buyer/admin/receive?orderId=${orderMaster.orderId}&userName=${orderMaster.userName}">确认收货</a>
+                    </#if>
+
+                </td>
+                <td class="me-t">
+                    <#if orderMaster.orderStatus==0>
+                        <a href="/buyer/admin/cancel?orderId=${orderMaster.orderId}&userName=${orderMaster.userName}">取消订单</a>
+                    </#if>
+                </td>
+
+                <td class="me-t">
+                    <a href="/buyer/admin/detail?orderId=${orderMaster.orderId}">查看详情</a>
+                </td>
+            </tr>
         </#list>
         </tbody>
     </table>

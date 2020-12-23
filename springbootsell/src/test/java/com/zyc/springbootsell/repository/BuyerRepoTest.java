@@ -24,4 +24,8 @@ public class BuyerRepoTest {
             System.out.println(buyer);
         }
     }
+    @Test
+    public void findOne(){
+        System.out.println(repo.findOne("张三"));
+    }
 }

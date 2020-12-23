@@ -5,5 +5,4 @@ import com.zyc.springbootsell.dataobject.Seller;
 
 public interface BuyerService {
     Buyer checkUser(String username, String password);
-
 }

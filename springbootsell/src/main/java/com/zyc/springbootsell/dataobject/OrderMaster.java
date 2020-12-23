@@ -14,7 +14,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class OrderMaster {
-
     @Id
     private String orderId;
 

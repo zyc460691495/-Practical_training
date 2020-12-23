@@ -1,4 +1,6 @@
 package com.zyc.springbootsell.repository;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import com.zyc.springbootsell.dataobject.OrderMaster;
 import org.junit.Assert;
@@ -17,7 +19,17 @@ public class OrderMasterRepoTest {
     @Test
     public void save(){
         OrderMaster orderMaster=new OrderMaster();
-        orderMaster.setOrderId("7");
+        orderMaster.setOrderId("122");
+        orderMaster.setUserName("zyc");
+        orderMaster.setBuyerPhone("110");
+        orderMaster.setBuyerAddress("江科大西门");
+        orderMaster.setBuyerOpenId("555");
+        orderMaster.setOrderAmount(new BigDecimal("0"));
+        orderMaster.setOrderStatus(0);
+        orderMaster.setPayStatus(0);
+        orderMaster.setCreateTime(new Date());
+        orderMaster.setUpdateTime(new Date());
+
         OrderMaster save = orderMasterRepo.save(orderMaster);
         Assert.assertNotNull(save);
     }

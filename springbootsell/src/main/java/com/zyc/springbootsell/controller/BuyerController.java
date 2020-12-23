@@ -10,12 +10,12 @@ import com.zyc.springbootsell.repository.OrderDteailRepo;
 import com.zyc.springbootsell.repository.OrderMasterRepo;
 import com.zyc.springbootsell.repository.ProductInfoRepo;
 import com.zyc.springbootsell.services.BuyerService;
+import com.zyc.springbootsell.services.OrderDetailService;
 import com.zyc.springbootsell.services.SellerService;
 import com.zyc.springbootsell.utils.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +24,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+//@Controller
+@RestController
 @RequestMapping("/buyer/admin")
 public class BuyerController {
 
@@ -40,6 +41,14 @@ public class BuyerController {
     @Autowired
     private OrderMasterRepo orderMasterRepo;
 
+    @Autowired
+    private OrderDetailService orderDetailService;
+
+
+    @GetMapping("/findOne/{username}")
+    public Buyer findById(@PathVariable("username") String username){
+        return repo.findOne(username);
+    }
 
     @RequestMapping("/index")
     public ModelAndView index() {
@@ -61,7 +70,8 @@ public class BuyerController {
     }
 
     @RequestMapping("/personInfo")
-    public ModelAndView personInfo(@RequestParam(value = "username", required = true) String username,
+    public ModelAndView personInfo(@RequestParam(value = "username", required = true)
+                                               String username,
                                    Map<String, Object> map) {
 
         Buyer buyer = repo.findOne(username);
@@ -90,11 +100,6 @@ public class BuyerController {
         String[] productNames = request.getParameterValues("productName");
         String[] productIcons = request.getParameterValues("productIcon");
         String[] productQuantities = request.getParameterValues("productQuantity");
-
-
-
-
-
         String[] productIds = request.getParameterValues("productId");
 
         String[] buyerPhones = request.getParameterValues("buyerPhone");
@@ -107,8 +112,8 @@ public class BuyerController {
             for (String quantities : productQuantities) {
                 flag = flag + Integer.parseInt(quantities);
             }
-            if (flag==0){
-                throw new SellException("未选购商品",20);
+            if (flag == 0) {
+                throw new SellException("未选购商品", 20);
             }
             //orderId
             String s = KeyUtil.genUniqueKey();
@@ -192,7 +197,6 @@ public class BuyerController {
             if (!(userpasswords[0].equals(userpasswords[1]))) {
                 throw new passwordException("两次密码不同", 2);
             }
-
             String[] passwords = request.getParameterValues("password");
             Buyer buyer = repo.findOne(usernames[0]);
             buyer.setBuyerPhone(buyerPhones[0]);
@@ -209,4 +213,55 @@ public class BuyerController {
         }
     }
 
+    @GetMapping("/pay")
+    public ModelAndView payOrder(@RequestParam(value = "orderId", required = true) String orderId,
+                                 @RequestParam(value = "userName", required = true) String userName,
+                                 Map<String, Object> map){
+//        System.out.println(orderId);
+        OrderMaster orderMaster=orderMasterRepo.findOne(orderId);
+        orderMaster.setPayStatus(1);
+        orderMasterRepo.save(orderMaster);
+//        System.out.println(orderMaster);
+        map.put("msg", "支付成功");
+        map.put("url","/buyer/admin/list?username="+userName);
+        return new ModelAndView("common/success",map);
+    }
+
+    @GetMapping("/receive")
+    public ModelAndView receive(@RequestParam(value = "orderId", required = true) String orderId,
+                                 @RequestParam(value = "userName", required = true) String userName,
+                                 Map<String, Object> map){
+
+        OrderMaster orderMaster=orderMasterRepo.findOne(orderId);
+        orderMaster.setOrderStatus(1);
+        orderMasterRepo.save(orderMaster);
+        map.put("msg", "收货成功");
+        map.put("url","/buyer/admin/list?username="+userName);
+        return new ModelAndView("common/success",map);
+    }
+    @GetMapping("/cancel")
+    public ModelAndView cancel(@RequestParam(value = "orderId", required = true) String orderId,
+                                @RequestParam(value = "userName", required = true) String userName,
+                                Map<String, Object> map){
+
+        OrderMaster orderMaster=orderMasterRepo.findOne(orderId);
+        orderMaster.setOrderStatus(2);
+        orderMasterRepo.save(orderMaster);
+        map.put("msg", "取消成功");
+        map.put("url","/buyer/admin/list?username="+userName);
+        return new ModelAndView("common/success",map);
+    }
+    @GetMapping("/detail")
+    public ModelAndView detail(@RequestParam(value = "orderId",required = true) String orderId,
+                               Map<String,Object> map){
+        try {
+            List<OrderDetail> orderDetailList = orderDetailService.findByOrderId(orderId);
+            map.put("orderDetailList",orderDetailList);
+            return new ModelAndView("order/detail",map);
+        }catch (Exception exception){
+            map.put("msg", exception.getMessage());
+            map.put("url", "/seller/order/list");
+            return new ModelAndView("common/error", map);
+        }
+    }
 }

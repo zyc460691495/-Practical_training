@@ -1,26 +1,34 @@
 package com.zyc.springbootsell.dataobject;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Seller {
+public class Business {
 
     @Id
     @GenericGenerator(name ="idGenerator" ,strategy = "uuid")
     @GeneratedValue(generator = "idGenerator")
-    String username;
+    private String businessId;
 
-    String password;
+    private String businessName;
 
+    private String password;
 
+    private String businessAddress;
+
+    private String businessExplain;
+
+    private Double starPrice;
+
+    private Double deliveryPrice;
 
 }

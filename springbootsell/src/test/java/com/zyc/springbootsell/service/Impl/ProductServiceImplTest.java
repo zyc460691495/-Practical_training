@@ -25,9 +25,9 @@ public class ProductServiceImplTest {
 
     @Test
     public void findOne(){
-        ProductInfo productInfo = productService.findOne("1");
-        System.out.println(productInfo);
-        Assert.assertEquals("1", productInfo.getProductId());
+        ProductInfo productInfo = productService.findOne("121");
+        System.out.println(productInfo.toString());
+        Assert.assertEquals("122", productInfo.getProductId());
     }
 
     @Test
@@ -40,11 +40,11 @@ public class ProductServiceImplTest {
 
     @Test
     public void findAllPage(){
-        Pageable pageable =new PageRequest(0,1, Sort.Direction.ASC,"productId");
+        Pageable pageable =new PageRequest(0,2, Sort.Direction.ASC,"productId");
         Page<ProductInfo> allPage = productService.findAllPage(pageable);
         List<ProductInfo> content = allPage.getContent();
         for (ProductInfo p :content){
-            System.out.println(p);
+            System.out.println(p.toString());
         }
     }
     @Test
@@ -56,8 +56,8 @@ public class ProductServiceImplTest {
 
     @Test
     public void onSale(){
-        ProductInfo productInfo = productService.onSale("444");
-        Assert.assertEquals(ProductStatusEnum.UP.getMessage(),productInfo.getProductStatus());
+        ProductInfo productInfo = productService.onSale("121");
+        Assert.assertEquals(ProductStatusEnum.UP.getCode(),productInfo.getProductStatus());
     }
 
     @Test

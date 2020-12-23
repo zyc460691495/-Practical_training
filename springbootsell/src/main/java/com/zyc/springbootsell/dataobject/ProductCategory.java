@@ -25,6 +25,8 @@ public class ProductCategory {
     @GeneratedValue
     private Integer categoryType;
 
+    private String businessId;
+
     private Date createTime;
 
     private Date updateTime;

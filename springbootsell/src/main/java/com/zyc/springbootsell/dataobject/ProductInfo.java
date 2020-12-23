@@ -22,6 +22,8 @@ public class ProductInfo {
 
     private String productName;
 
+    private String businessId;
+
     private BigDecimal productPrice;
 
     private Integer productStock=0;
@@ -38,4 +40,20 @@ public class ProductInfo {
 
     private Date updateTime;
 
+    @Override
+    public String toString() {
+        return "ProductInfo{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", businessId='" + businessId + '\'' +
+                ", productPrice=" + productPrice +
+                ", productStock=" + productStock +"\n"+
+                ", productDescription='" + productDescription + '\'' +
+                ", productIcon='" + productIcon + '\'' +
+                ", productStatus=" + productStatus +
+                ", categoryType=" + categoryType +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }
